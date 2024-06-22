@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☠️ Gacha Bapak:-} ☠️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <style>
+        body {
+            background-image: url('https://i.ibb.co.com/kVZNQ6g/oshi-no-ko.jpg'); /* Background lebih gelap */
+            font-family: 'Poppins', sans-serif; /* Font modern Poppins */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .card {
+            background-color: rgba(147, 148, 171, 0.25);
+            padding: 20px;
+            border: 1px solid #d2e0ff; /* Border jingga ke kuningan */
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow lebih gelap */
+            backdrop-filter: blur(10px); /* Blur lebih kuat */
+            position: relative; /* Untuk positioning spinner */
+        }
+
+        h1, p {
+            color: #000000; /* Warna font jingga ke kuningan */
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ffffff; /* Border input */
+            border-radius: 200px;
+            text-align: center;
+            width: 80%;
+            margin-bottom: 20px;
+            background-color: transparent;
+            color: #f1f1f1;
+        }
+
+        button {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 200px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            background-color: #4e4aa7;
+            transform: translateY(-3px); /* Efek naik saat hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Shadow lebih dalam saat hover */
+        }
+
+        .footer {
+            color: #000000;
+            font-weight: bold;
+            position: absolute;
+            bottom: 5px;
+            width: 80%;
+            text-align: center;
+        }
+
+        #result {
+            display: none;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #FFA500; /* Warna jingga ke kuningan */
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -20px; /* Setengah dari tinggi */
+            margin-left: -20px; /* Setengah dari lebar */
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Gacha Bapak lu</h1>
+        <p>Setiap nama bapak lu ada kekuatan khusus :D</p>
+        <p>Masukkan nama lu</p>
+        <input type="text" id="nameInput" placeholder="Ketik nama kamu di sini">
+        <button onclick="cekbapak()">Mulai gacha</button>
+        <div id="loading" class="loading-spinner" style="display: none;"></div>
+        <button onclick="resetForm()" style="margin-top: 20px;">Gacha Lagi</button>
+        <div id="result">
+            <h2 id="bapakName"></h2>
+            <p id="bapakMeaning"></p>
+        </div>
+    </div>
+    <div class="footer">
+        This made for fun:p<a target="_blank"> by veyfr666 not santanic</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        function cekbapak() {
+            const nameInput = document.getElementById('nameInput').value;
+            if (!nameInput) {
+                Swal.fire({
+                    title: 'GAK BOLEH KOSONG GBLK',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            document.getElementById('loading').style.display = 'block'; // Tampilkan spinner
+            setTimeout(() => {
+                const bapaks = [
+                { name: "Ujang/Ruslan", meaning: "Kamu bisa menjadi kecil dan lincah seperti tupai, karena pendahulumu mewariskan kekuatan besar padamu." },
+                { name: "RoJali", meaning: "Terlihat lemah namun ketua mafia memiliki ribuan anak buah, Anak nya raja iblis hitam." },
+                { name: "Hariando", meaning: "Jika kamu berenang atau memancing debuff untuk selalu selamat di laut atau memancing bisa mendapatkan ikan paus." },
+                { name: "Amin", meaning: "Jika kamu melakukan Gym/Wo akan mendapatkan debuff 90% yaitu stamina dan tenaga tidak akan habs selama 4 jam." },
+                { name: "Yunus", meaning: "Jika terjebak di laut bisa menunggangi ikan." },
+                { name: "Basir", meaning: "misterius dan selalu ada di tempat-tempat yang tak terduga, memiliki kekuatan pasir." },
+                { name: "Adi", meaning: "Bisa menjinakan hewan seperti burung dan memeliharanya." },
+                { name: "Samsul", meaning: "Jika kamu naik boat ke tempat lain akan gratis dan debuff keselamatan 10%." },
+                { name: "Udin Jamaludin", meaning: "Jika kamu mullet akan mendapatkan debuff ketahanan 70%." },
+                { name: "Davi pink", meaning: "Bisa menginfeksikan seseorang menjadi pink." },
+                { name: "Abi", meaning: "debuff jika menservis barang akan berhasil 90%." },
+                { name: "Ade", meaning: "Debuff mempunyai kekuatan dan ketahanan 60%." },
+                { name: "Azhar", meaning: "Jika berjualan akan membuat laris manis dsn makanan lezat." },
+                { name: "Sopian", meaning: "Unknow mahluk Rare!!!!!!!." },
+                { name: "Agus", meaning: "Jika balap akan menambah kecepatan 20%." },
+                { name: "Sadri", meaning: "Agen khusus, debuff kecepatan 30%." },
+                { name: "Ijal", meaning: "Jika beradu kata akan membuat mu menang dalam argumen." },
+                { name: "Anto", meaning: "Non Discription Undified." },
+                { name: "Carlo Pasaribu", meaning: "Alamak, Menambah debuff bertarung." },
+                { name: "Adimar", meaning: "Debuff jika balapan di kota kecepatan 40% namun beresiko ." },
+                { name: "Asnawi", meaning: "Ga tawu lore iyan." },
+                { name: "Zulkarnain", meaning: "Debuff memiliki istri banyak 12%/ Ngehareem." },
+                { name: "Beben", meaning: "Debuff menjadi pembalap/jokk akan menambah kecepatan 99%" },
+                
+                    // Tambahkan bapak lainnya sesuai kebutuhan
+                ];
+                const bapak = bapaks[Math.floor(Math.random() * bapaks.length)];
+                document.getElementById('bapakName').innerText = `bapak: ${bapak.name}`;
+                document.getElementById('bapakMeaning').innerText = bapak.meaning;
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('loading').style.display = 'none'; // Sembunyikan spinner
+            }, 2000); // Delay untuk simulasi loading
+        }
+
+        function resetForm() {
+            document.getElementById('nameInput').value = '';
+            document.getElementById('result').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
